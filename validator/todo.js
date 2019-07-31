@@ -12,7 +12,7 @@ module.exports = {
         notEmpty: true
     },
     'todo.owner' : {
-      isString : true,
+      isArray : true,
       notEmpty : true
     }
   }

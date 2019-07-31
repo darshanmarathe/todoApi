@@ -31,9 +31,10 @@ module.exports = function(db, collection) {
             });
           }
           if(decoded){
-                    req.user = {user} = decoded;
-                    next();
-                    return;
+            let {user} = decoded;
+            req.user = user
+            next();
+            return;
           }
         }else{
           db.collection(collection).findOne({ token: req.token }, function(

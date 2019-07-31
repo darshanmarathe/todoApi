@@ -42,7 +42,7 @@ module.exports = function(db){
         let todo  =  todoJson;
         todo.links = {};
          todo.links.self = `http://${req.headers.host}/todos/${result.insertedId}`
-         todo.links.all = `http://${req.headers.host}/todos/all/${todo.owner}`
+         todo.links.all = `http://${req.headers.host}/todos/all/${req.user.email}`
     
         return res.send({
           err: false,
@@ -67,7 +67,7 @@ module.exports = function(db){
                     let todo = req.body.todo;
                     todo.links = {};
                     todo.links.self = `http://${req.headers.host}/todos/${todo._id}`
-                    todo.links.all = `http://${req.headers.host}/todos/all/${todo.owner}`
+                    todo.links.all = `http://${req.headers.host}/todos/all/${req.user.email}`
                
                     return res.send({   
                         err: false,

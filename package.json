@@ -19,6 +19,7 @@
     "chai-http": "^3.0.0",
     "express": "^4.13.4",
     "express-validator": "^2.20.8",
+    "express-winston": "^3.2.1",
     "guid": "0.0.12",
     "install": "^0.8.1",
     "jsonwebtoken": "^7.0.0",
@@ -33,7 +34,7 @@
     "q": "^1.4.1",
     "speakeasy": "^2.0.0",
     "twilio": "^2.11.0",
-    "winston": "^2.2.0"
+    "winston": "^3.2.1"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +44,7 @@
   },
   "homepage": "https://github.com/darshanmarathe/todoApi#readme",
   "devDependencies": {
+    "eslint": "^6.1.0",
     "mocha": "^6.2.0",
     "should": "^13.2.3",
     "sinon": "^7.3.2"
