@@ -6,8 +6,8 @@ require("./config/express.js")(app);
 
 require("./config/mongo.js")(function(err, db){
     if(err) throw err;
-    // require("./routes/patient.js")(db, app);
-     require("./routes/index.js")(db, app);
+    require("./routes/index.js")(db, app);
+    require("./routes/todos.js")(db, app);
 
 });
 
