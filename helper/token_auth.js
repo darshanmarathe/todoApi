@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 
 function checkHeader(req) {
     var bearerHeader = req.headers.authorization;
@@ -19,7 +20,6 @@ function checkHeader(req) {
             err: "Token not set"
           });
         }
-        console.log(req.token);
         db.collection(collection).findOne({ token: req.token }, function(err,result)  {
           console.log(result);
           if(err){
@@ -38,17 +38,6 @@ function checkHeader(req) {
             });
           }
         });
-      },
-      accessingSelf: function(req, res, next){
-        var upin = req.params.upin;
-        if( upin == req.user.upin ){
-          next();
-        }else{
-          return res.send({
-            err: true,
-            error: "This upin belongs to someone else."
-          });
-        }
       }
     };
   };

@@ -13,8 +13,6 @@ module.exports = function(db){
 
       password.hashPassword(userData.password, function(_password){
         console.log(_password);
-        let _token = userData.email + userData.password ;
-        userData.token = jwt.sign(_token, (new Date()).toString());
         userData.password = _password;
         db.collection('users').insertOne( userData , function(err, result){
           console.log(err);
@@ -81,11 +79,23 @@ module.exports = function(db){
               });
             } else {
               if (result) {
-                console.log(result);
-                res.json({
-                  err: false,
-                  result: {token: user.token, upin: user.upin}
+                let _token = user.email + user.password ;
+                user.token = jwt.sign(_token, "SuperKeyyyy");
+                const id = user._id;
+                db.collection('users').updateOne({ _id: ObjectId(id) }
+                , { $set: user }, function (error, _user) {
+                    if (error) {
+                        return res.send({
+                            err: true,
+                            error: error
+                        });
+                    }
+                    return res.send({   
+                        err: false,
+                        result: {token : user.token}
+                    });
                 });
+
               } else {
                 res.status(401).json({
                   err: true,
