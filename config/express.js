@@ -65,7 +65,7 @@ module.exports = function(app) {
       errors = req.validationErrors();
       errors = _.uniqBy(errors, "param");
       if (errors.length) {
-        res.send({ err: true, error: errors });
+        res.status(400).send({ err: true, error: errors });
         return false;
       } else return true;
     };

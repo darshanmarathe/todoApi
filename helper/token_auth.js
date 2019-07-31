@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const settings = require('../config/settings')
 
 function checkHeader(req) {
   var bearerHeader = req.headers.authorization;
@@ -21,27 +22,42 @@ module.exports = function(db, collection) {
         });
       }
       jwt.verify(req.token, "SuperKeyyyy", function(err, decoded) {
-        db.collection(collection).findOne({ token: req.token }, function(
-          err,
-          result
-        ) {
-          console.log(result);
-          if (err) {
-            return res.status(500).send({
+    
+        if(!settings.useSingleDevice){
+          if(err) {
+            res.status(403).send({
               result: false,
-              err: err
+              err: "Invalid Token"
             });
           }
-          if (result) {
-            req.user = result;
-            next();
-          } else {
-            res.status(401).json({
-              result: false,
-              err: "Invalid token"
-            });
+          if(decoded){
+                    req.user = {user} = decoded;
+                    next();
+                    return;
           }
-        });
+        }else{
+          db.collection(collection).findOne({ token: req.token }, function(
+            err,
+            result
+          ) {
+            console.log(result);
+            if (err) {
+              return res.status(500).send({
+                result: false,
+                err: err
+              });
+            }
+            if (result) {
+              req.user = result;
+              next();
+            } else {
+              res.status(401).json({
+                result: false,
+                err: "Invalid token"
+              });
+            }
+          });
+        }
       });
     }
   };

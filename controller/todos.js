@@ -22,8 +22,11 @@ module.exports = function(db){
       });
     },
     addTodo : function(req, res){
-      req.checkBody(req);
-      if(!req.validateAndRespond()) return;
+      req.checkBody(todoValidator);
+      if(!req.validateAndRespond()) {
+       return res.status(400);
+
+      };
       const todoJson = req.body.todo;
       if(todoJson.isCompleted == undefined) todoJson.isCompleted =false;
       db.collection('Todos').insertOne(todoJson, function(error, result){
