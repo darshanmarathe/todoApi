@@ -14,6 +14,9 @@ module.exports = function(db){
             error: error
           });
         }else{
+          todo.links = {};
+          todo.links.self = `http://${req.headers.host}/todos/${todo._id}`
+          todo.link.all = `http://${req.headers.host}/todos/all/${todo.owner}`
           res.send({
             err: false,
             result: todo
@@ -36,9 +39,14 @@ module.exports = function(db){
             error: error
           });
         }
+        let todo  =  todoJson;
+        todo.links = {};
+         todo.links.self = `http://${req.headers.host}/todos/${result.insertedId}`
+         todo.links.all = `http://${req.headers.host}/todos/all/${todo.owner}`
+    
         return res.send({
           err: false,
-          result: result
+          result: todo
         });
       });
     },
@@ -56,9 +64,14 @@ module.exports = function(db){
                             error: error
                         });
                     }
+                    let todo = req.body.todo;
+                    todo.links = {};
+                    todo.links.self = `http://${req.headers.host}/todos/${todo._id}`
+                    todo.links.all = `http://${req.headers.host}/todos/all/${todo.owner}`
+               
                     return res.send({   
                         err: false,
-                        result: result
+                        result: todo
                     });
                 });
         },
@@ -73,9 +86,15 @@ module.exports = function(db){
             error: error
           });
         }else{
+          const returnTodos  = todos.map((todo) => {
+            todo.links = {};
+            todo.links.self = `http://${req.headers.host}/todos/${todo._id}`
+            todo.links.all = `http://${req.headers.host}/todos/all/${todo.owner}`
+            return todo;
+          })
           res.send({
             err: false,
-            result: todos
+            result: returnTodos
           });
         }
       });
