@@ -80,7 +80,7 @@ module.exports = function(db){
             } else {
               if (result) {
                 let _token = user.email + user.password ;
-                user.token = jwt.sign(_token, "SuperKeyyyy");
+                user.token = jwt.sign({data : _token}, "SuperKeyyyy" ,{ expiresIn: '1h' });
                 const id = user._id;
                 db.collection('users').updateOne({ _id: ObjectId(id) }
                 , { $set: user }, function (error, _user) {
