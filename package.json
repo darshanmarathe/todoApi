@@ -4,6 +4,7 @@
   "description": "Todo API with Auth and validators",
   "main": "index.js",
   "scripts": {
+    "watch": "nodemon index.js",
     "start": "node index.js",
     "lint": "eslint index.js",
     "test": "mocha tests/**/*Test.js"
@@ -44,6 +45,7 @@
   "homepage": "https://github.com/darshanmarathe/todoApi#readme",
   "devDependencies": {
     "mocha": "^6.2.0",
+    "nodemon": "^2.0.22",
     "should": "^13.2.3",
     "sinon": "^7.3.2"
   }
